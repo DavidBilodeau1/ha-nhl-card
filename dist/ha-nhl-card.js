@@ -231,7 +231,10 @@ class NHLCard extends LitElement {
 					    <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 					    <div class="network">${stateObj.attributes.tv_network}</div>
 				    </div>
-				    
+				    <div class="sub4">
+				      <div class="location">${stateObj.attributes.game_status}</div>
+				      <div class="network">${stateObj.attributes.series_summary}</div>
+				    </div>			    
 				    <div class="probability-text">Win Probability</div>
 				    <div class="probability-wrapper">
 				      <div class="away-team-percent">${awayTeamProb}%</div>
@@ -300,6 +303,12 @@ class NHLCard extends LitElement {
 				  <div class="venue">${stateObj.attributes.venue_name}</div>
 				  <div class=location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 				</div>
+
+				<div class="sub4">
+				  <div class="location">${stateObj.attributes.game_status}</div>
+				  <div class="network">${stateObj.attributes.series_summary}</div>
+				</div>
+
 				<div class="line"></div>
 				  <table class="ls">
 					  <thead>
@@ -397,14 +406,20 @@ class NHLCard extends LitElement {
 				<div class="game-status">${stateObj.attributes.game_status}</div>
 				<div class="line"></div>
 				
-				<div class="sub3">
+				<div class="sub2">
 				  <div class="venue">${stateObj.attributes.venue_name}</div>
 				 <div class="weather">&nbsp;</div>
 				</div>
-				<div class="sub4">
+				<div class="sub3">
 				  <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 				  <div class="network">${stateObj.attributes.tv_network}</div>
 				</div>
+
+				<div class="sub4">
+				  <div class="location">${stateObj.attributes.game_status}</div>
+				  <div class="network">${stateObj.attributes.series_summary}</div>
+				</div>
+
 				<div class="line"></div>
 				<div class="last-play">
 				  <p>${stateObj.attributes.last_play}</p>
