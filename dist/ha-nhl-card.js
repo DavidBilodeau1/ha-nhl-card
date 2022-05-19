@@ -317,6 +317,7 @@ class NHLCard extends LitElement {
 						    <th>1</th>
 						    <th>2</th>
 						    <th>3</th>
+                                                    <th>OT</th>
 						    <th>T</th>
 					    </tr>
 					  </thead>
@@ -326,6 +327,7 @@ class NHLCard extends LitElement {
 						    <td>${stateObj.attributes.away_team_ls_1}</td>
 						    <td>${stateObj.attributes.away_team_ls_2}</td>
 						    <td>${stateObj.attributes.away_team_ls_3}</td>
+                                                    <td>${stateObj.attributes.away_team_ls_ot}</td>
 						    <td>${stateObj.attributes.away_team_goals}</td>
 					    </tr>
 					    <tr>
@@ -333,6 +335,7 @@ class NHLCard extends LitElement {
 						    <td>${stateObj.attributes.home_team_ls_1}</td>
 						    <td>${stateObj.attributes.home_team_ls_2}</td>
 						    <td>${stateObj.attributes.home_team_ls_3}</td>
+                                                    <td>${stateObj.attributes.home_team_ls_ot}</td>
 						    <td>${stateObj.attributes.home_team_goals}</td>
 					    </tr>
 					  </tbody>
@@ -433,6 +436,7 @@ class NHLCard extends LitElement {
 						 <th>1</th>
 						 <th>2</th>
 						 <th>3</th>
+                                                 <th>OT</th>
 						 <th>T</th>
 					   </tr>
 					 </thead>
@@ -442,6 +446,7 @@ class NHLCard extends LitElement {
 						 <td>${stateObj.attributes.away_team_ls_1}</td>
 						 <td>${stateObj.attributes.away_team_ls_2}</td>
 						 <td>${stateObj.attributes.away_team_ls_3}</td>
+                                                 <td>${stateObj.attributes.away_team_ls_ot}</td>
 						 <td>${stateObj.attributes.away_team_goals}</td>
 					   </tr>
 					   <tr>
@@ -449,6 +454,7 @@ class NHLCard extends LitElement {
 						 <td>${stateObj.attributes.home_team_ls_1}</td>
 						 <td>${stateObj.attributes.home_team_ls_2}</td>
 						 <td>${stateObj.attributes.home_team_ls_3}</td>
+                                                 <td>${stateObj.attributes.home_team_ls_ot}</td>
 						 <td>${stateObj.attributes.home_team_goals}</td>
 					   </tr>
 					 </tbody>
