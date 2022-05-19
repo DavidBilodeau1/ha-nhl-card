@@ -232,7 +232,7 @@ class NHLCard extends LitElement {
 					    <div class="network">${stateObj.attributes.tv_network}</div>
 				    </div>
 				    <div class="sub4">
-				      <div class="location">${stateObj.attributes.game_status}</div>
+				      <div class="location">${stateObj.attributes.game_notes}</div>
 				      <div class="network">${stateObj.attributes.series_summary}</div>
 				    </div>			    
 				    <div class="probability-text">Win Probability</div>
@@ -305,7 +305,7 @@ class NHLCard extends LitElement {
 				</div>
 
 				<div class="sub4">
-				  <div class="location">${stateObj.attributes.game_status}</div>
+				  <div class="location">${stateObj.attributes.game_notes}</div>
 				  <div class="network">${stateObj.attributes.series_summary}</div>
 				</div>
 
@@ -419,7 +419,7 @@ class NHLCard extends LitElement {
 				</div>
 
 				<div class="sub4">
-				  <div class="location">${stateObj.attributes.game_status}</div>
+				  <div class="location">${stateObj.attributes.game_notes}</div>
 				  <div class="network">${stateObj.attributes.series_summary}</div>
 				</div>
 
