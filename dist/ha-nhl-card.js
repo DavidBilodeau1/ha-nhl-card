@@ -176,21 +176,25 @@ class NHLCard extends LitElement {
 				.team { text-align: center; width: 35%; }
 				.team img { height: 90px; }
 				.name { font-size: 1.4em; margin-bottom: 4px; }
+				.record { text-align: center; }
+				.goalie { text-align: center; }
 				.line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
 				.gameday { font-size: 1.4em; margin-bottom: 4px; }
 				.gametime { font-size: 1.1em; }
 				.sub1 { font-weight: 500; font-size: 1.2em; margin: 6px 0 2px; }
-				.sub1, .sub2, .sub3 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
-				.last-play { font-size: 1.2em; width: 100%; white-space: nowrap; overflow: hidden; box-sizing: border-box; }
-				.last-play p { display: inline-block; padding-left: 100%; margin: 2px 0 12px; animation : slide 10s linear infinite; }
-				@keyframes slide { 0%   { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-				.clock { text-align: center; font-size: 1.4em; }
-				.down-distance { text-align: right; font-weight: 700; }
-				.kickoff { text-align: center; margin-top: -24px; }
+				.sub1, .sub2, .sub3, .sub4 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
+				.date { text-align: left; }
+				.odds { text-align: right; }
+				.venue { text-align: left; }
+				.overunder { text-align: right; }
+				.location { text-align: left; }
+				.network { text-align: right; }
+				.gamenotes { text-align: left; }
+				.seriessummary { text-align: right; }
 				.probability-text { text-align: center; }
 				.prob-flex { width: 100%; display: flex; justify-content: center; margin-top: 4px; }
-        .away-team-probability { width: ${awayTeamProb}%; background-color: ${awayTeamColor}; height: 12px; border-radius: 0 ${probRadius}px ${probRadius}px 0; border: ${clrOut}px solid ${outColor}; border-left: 0; transition: all 1s ease-out; }
-        .home-team-probability { width: ${homeTeamProb}%; background-color: ${homeTeamColor}; height: 12px; border-radius: ${probRadius}px 0 0 ${probRadius}px; border: ${clrOut}px solid ${outColor}; border-right: 0; transition: all 1s ease-out; }
+				.away-team-probability { width: ${awayTeamProb}%; background-color: ${awayTeamColor}; height: 12px; border-radius: 0 ${probRadius}px ${probRadius}px 0; border: ${clrOut}px solid ${outColor}; border-left: 0; transition: all 1s ease-out; }
+				.home-team-probability { width: ${homeTeamProb}%; background-color: ${homeTeamColor}; height: 12px; border-radius: ${probRadius}px 0 0 ${probRadius}px; border: ${clrOut}px solid ${outColor}; border-right: 0; transition: all 1s ease-out; }
 				.probability-wrapper { display: flex; }
 				.away-team-percent { flex: 0 0 10px; padding: 0 10px 0 0; }
 				.home-team-percent { flex: 0 0 10px; padding: 0 0 0 10px; text-align: right; }
@@ -205,7 +209,7 @@ class NHLCard extends LitElement {
 					      <img src="${awayTeamLogo}" />
 					      <div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
 					      <div class="record">${stateObj.attributes.away_team_record}</div>
-					      <div class="pitcher">${stateObj.attributes.away_team_starting_goalie}</div>
+					      <div class="goalie">${stateObj.attributes.away_team_starting_goalie}</div>
 					    </div>
 					    <div class="gamewrapper">
 					      <div class="gameday">${gameDay}</div>
@@ -215,25 +219,25 @@ class NHLCard extends LitElement {
 					      <img src="${homeTeamLogo}" />
 					      <div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
 					      <div class="record">${stateObj.attributes.home_team_record}</div>
-					      <div class="pitcher">${stateObj.attributes.home_team_starting_goalie}</div>
+					      <div class="goalie">${stateObj.attributes.home_team_starting_goalie}</div>
 					    </div>
 				    </div>
 				    <div class="line"></div>
 				    <div class="sub1">
 					    <div class="date">Puck drop ${stateObj.attributes.puck_drop_in}</div>
-					    <div class="odds">${stateObj.attributes.odds} [ O/U: ${stateObj.attributes.overunder} ]</div>
+					    <div class="odds">${stateObj.attributes.odds}</div>
 				    </div>
 				    <div class="sub2">
 					    <div class="venue">${stateObj.attributes.venue_name}</div>
-					    <div class="overunder">&nbsp;</div>
+					    <div class="overunder">O/U: ${stateObj.attributes.overunder}</div>
 				    </div>
 				    <div class="sub3">
 					    <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 					    <div class="network">${stateObj.attributes.tv_network}</div>
 				    </div>
 				    <div class="sub4">
-				      <div class="location">${stateObj.attributes.game_notes}</div>
-				      <div class="network">${stateObj.attributes.series_summary}</div>
+				      <div class="gamenotes">${stateObj.attributes.game_notes}</div>
+				      <div class="seriessummary">${stateObj.attributes.series_summary}</div>
 				    </div>			    
 				    <div class="probability-text">Win Probability</div>
 				    <div class="probability-wrapper">
@@ -378,11 +382,11 @@ class NHLCard extends LitElement {
 				.weather { text-align: right; }
 				.location { text-align: left; }
 				.network { text-align: right; }
-                .line-score-table { width: 100%; border-collapse: collapse; text-align: center; }
-                .line-score-cell { border: 0.5px solid #999; text-align: center; }
-                table.ls { width: 100%; text-align: center; border: 0.5px solid #999; border-collapse: collapse; }
-                th, td { border: 0.5px solid #999; text-align: center; }
-                th.teamls, td.teamls { border: 0.5px solid #999; text-align: left; }
+				.line-score-table { width: 100%; border-collapse: collapse; text-align: center; }
+				.line-score-cell { border: 0.5px solid #999; text-align: center; }
+				table.ls { width: 100%; text-align: center; border: 0.5px solid #999; border-collapse: collapse; }
+				th, td { border: 0.5px solid #999; text-align: center; }
+				th.teamls, td.teamls { border: 0.5px solid #999; text-align: left; }
              
 			  </style>
 			  <ha-card>
