@@ -42,7 +42,19 @@ class NHLCard extends LitElement {
       var gameTime = dateForm.toLocaleTimeString('en-US', { hour: '2-digit', minute:'2-digit' });
       var gameMonth = dateForm.toLocaleDateString('en-US', { month: 'short' });
       var gameDate = dateForm.toLocaleDateString('en-US', { day: '2-digit' });
-
+			
+			if (stateObj.attributes.odds) {
+				var odds = stateObj.attributes.odds;
+			} else {
+				var odds = 'Odds: NA';
+			}
+			
+			if (stateObj.attributes.overunder) {
+				var overunder = stateObj.attributes.overunder;
+			} else {
+				var overunder = 'O/U: NA';
+			}
+			
       if (Boolean(stateObj.state == 'post') && Number(hScr) > Number(aScr)) {
         var awayTeamScoreOpacity = 0.6;
         var homeTeamScoreOpacity = 1;
@@ -225,11 +237,11 @@ class NHLCard extends LitElement {
 				    <div class="line"></div>
 				    <div class="sub1">
 					    <div class="date">Puck drop ${stateObj.attributes.puck_drop_in}</div>
-					    <div class="odds">${stateObj.attributes.odds}</div>
+					    <div class="odds">${odds}</div>
 				    </div>
 				    <div class="sub2">
 					    <div class="venue">${stateObj.attributes.venue_name}</div>
-					    <div class="overunder">O/U: ${stateObj.attributes.overunder}</div>
+					    <div class="overunder">${overunder}</div>
 				    </div>
 				    <div class="sub3">
 					    <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
@@ -255,30 +267,33 @@ class NHLCard extends LitElement {
       } else if (stateObj.state == 'post') {
 		  return html`
 			<style>
-			  .card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
-			  .away-team-bg { opacity: 0.08; position: absolute; top: -30%; left: -20%; width: 58%; z-index: 0; }
-			  .home-team-bg { opacity: 0.08; position: absolute; top: -30%; right: -20%; width: 58%; z-index: 0; }
-			  .card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
-			  .team { text-align: center; width: 35%;}
-			  .team img { height: 90px; }
-              .teamls { text-align: center; }
-              .teamls img { height: 15px; }
-
-			  .score { font-size: 3em; text-align: center; }
-			  .hometeamscr { opacity: ${homeTeamScoreOpacity}; }
-			  .awayteamscr { opacity: ${awayTeamScoreOpacity}; }
-			  .divider { font-size: 2.5em; text-align: center; opacity: 0; }
-			  .name { font-size: 1.4em; margin-bottom: 4px; }
-			  .line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
-			  .status { font-size: 1.2em; text-align: center; margin-top: -21px; }
-        .sub1, .sub2, .sub3, .sub4 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
-        .venue { text-align: left; }
-        .location { text-align: right; }
-        .line-score-table { width: 100%; border-collapse: collapse; text-align: center; }
-        .line-score-cell { border: 0.5px solid #999; text-align: center; }
-        table.ls { width: 100%; text-align: center; border: 0.5px solid #999; border-collapse: collapse; }
-        th, td, tr { border: 0.5px solid #999; text-align: center; border-collapse: collapse; }
-        th.teamls, td.teamls { border: 0.5px solid #999; text-align: left; width: 20%; border-collapse: collapse; }
+				.card { position: relative; overflow: hidden; padding: 16px 16px 20px; font-weight: 400; }
+				.away-team-bg { opacity: 0.08; position: absolute; top: -30%; left: -20%; width: 58%; z-index: 0; }
+				.home-team-bg { opacity: 0.08; position: absolute; top: -30%; right: -20%; width: 58%; z-index: 0; }
+				.card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
+				.team { text-align: center; width: 35%;}
+				.team img { height: 90px; }
+				.teamls { text-align: center; }
+				.teamls img { height: 15px; }
+				.score { font-size: 3em; text-align: center; }
+				.hometeamscr { opacity: ${homeTeamScoreOpacity}; }
+				.awayteamscr { opacity: ${awayTeamScoreOpacity}; }
+				.divider { font-size: 2.5em; text-align: center; opacity: 0; }
+				.name { font-size: 1.4em; margin-bottom: 4px; }
+				.record { text-align: center; }
+				.goalie { text-align: center; }
+				.line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
+				.status { font-size: 1.2em; text-align: center; margin-top: -21px; }
+				.sub1, .sub2, .sub3, .sub4 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
+				.venue { text-align: left; }
+				.location { text-align: right; }
+				.gamenotes { text-align: left; }
+				.seriessummary { text-align: right; }
+				.line-score-table { width: 100%; border-collapse: collapse; text-align: center; }
+				.line-score-cell { border: 0.5px solid #999; text-align: center; }
+				table.ls { width: 100%; text-align: center; border: 0.5px solid #999; border-collapse: collapse; }
+				th, td, tr { border: 0.5px solid #999; text-align: center; border-collapse: collapse; }
+				th.teamls, td.teamls { border: 0.5px solid #999; text-align: left; width: 20%; border-collapse: collapse; }
 			</style>
 			<ha-card>
 			  <div class="card">
@@ -286,31 +301,31 @@ class NHLCard extends LitElement {
 				<img class="home-team-bg" src="${homeTeamLogo}" />
 				<div class="card-content">
 				  <div class="team">
-					  <img src="${awayTeamLogo}" />
-					  <div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
-					  <div class="record">${stateObj.attributes.away_team_record}</div>
-            <div class="goalie">${awayTeamGoalieOfRecord}<br>${awayTeamGoalieOfRecordStats}</div>
+					<img src="${awayTeamLogo}" />
+					<div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
+					<div class="record">${stateObj.attributes.away_team_record}</div>
+					<div class="goalie">${awayTeamGoalieOfRecord}<br>${awayTeamGoalieOfRecordStats}</div>
 				  </div>
 				  <div class="score awayteamscr">${aScr}</div>
 				  <div class="divider">-</div>
 				  <div class="score hometeamscr">${hScr}</div>
 				  <div class="team">
-					  <img src="${homeTeamLogo}" />
-					  <div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
-					  <div class="record">${stateObj.attributes.home_team_record}</div>
-            <div class="goalie">${homeTeamGoalieOfRecord}<br>${homeTeamGoalieOfRecordStats}</div>
+					<img src="${homeTeamLogo}" />
+					<div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
+					<div class="record">${stateObj.attributes.home_team_record}</div>
+					<div class="goalie">${homeTeamGoalieOfRecord}<br>${homeTeamGoalieOfRecordStats}</div>
 				  </div>
 				</div>
 				<div class="status">FINAL</div>
 				<div class="line"></div>
-				<div class="sub3">
+				<div class="sub2">
 				  <div class="venue">${stateObj.attributes.venue_name}</div>
-				  <div class=location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
+				  <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 				</div>
 
-				<div class="sub4">
-				  <div class="location">${stateObj.attributes.game_notes}</div>
-				  <div class="network">${stateObj.attributes.series_summary}</div>
+				<div class="sub3">
+				  <div class="gamenotes">${stateObj.attributes.game_notes}</div>
+				  <div class="seriessummary">${stateObj.attributes.series_summary}</div>
 				</div>
 
 				<div class="line"></div>
@@ -357,13 +372,12 @@ class NHLCard extends LitElement {
 				.card-content { display: flex; justify-content: space-evenly; align-items: center; text-align: center; position: relative; z-index: 99; }
 				.team { text-align: center; width:35%; }
 				.team img { height: 90px; }
-                .teamls { text-align: center; }
-                .teamls img { height: 15px; }
+				.teamls { text-align: center; }
+				.teamls img { height: 15px; }
 				.score { font-size: 3em; text-align: center; }
 				.divider { font-size: 2.5em; text-align: center; margin: 0 4px; }
 				.name { font-size: 1.4em; margin-bottom: 4px; }
 				.line { height: 1px; background-color: var(--primary-text-color); margin:10px 0; }
-
 				.status { text-align:center; font-size:1.6em; font-weight: 700; }
 				.sub1 { font-weight: 700; font-size: 1.2em; margin: 6px 0 2px; }
 				.sub1, .sub2, .sub3, .sub4 { display: flex; justify-content: space-between; align-items: center; margin: 2px 0; }
@@ -382,6 +396,8 @@ class NHLCard extends LitElement {
 				.weather { text-align: right; }
 				.location { text-align: left; }
 				.network { text-align: right; }
+				.gamenotes { text-align: left; }
+				.seriessummary { text-align: right; }
 				.line-score-table { width: 100%; border-collapse: collapse; text-align: center; }
 				.line-score-cell { border: 0.5px solid #999; text-align: center; }
 				table.ls { width: 100%; text-align: center; border: 0.5px solid #999; border-collapse: collapse; }
@@ -415,16 +431,15 @@ class NHLCard extends LitElement {
 				
 				<div class="sub2">
 				  <div class="venue">${stateObj.attributes.venue_name}</div>
-				 <div class="weather">&nbsp;</div>
+				  <div class="weather">&nbsp;</div>
 				</div>
 				<div class="sub3">
 				  <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
 				  <div class="network">${stateObj.attributes.tv_network}</div>
 				</div>
-
 				<div class="sub4">
-				  <div class="location">${stateObj.attributes.game_notes}</div>
-				  <div class="network">${stateObj.attributes.series_summary}</div>
+				  <div class="gamenotes">${stateObj.attributes.game_notes}</div>
+				  <div class="seriessummary">${stateObj.attributes.series_summary}</div>
 				</div>
 
 				<div class="line"></div>
