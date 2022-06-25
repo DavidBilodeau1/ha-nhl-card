@@ -24,15 +24,19 @@ class NHLCard extends LitElement {
     const stateObj = this.hass.states[this._config.entity];
     const outline = this._config.outline;
     const outlineColor = this._config.outline_color;
-		const team_id = this._config.team_id;
-    const homeTeamProb = stateObj.attributes.home_team_odds_win_pct;
-    const awayTeamProb = stateObj.attributes.away_team_odds_win_pct;
+    const team_id = this._config.team_id;
 	
     var outColor = outlineColor;
 
     if (stateObj.state == 'pre' || stateObj.state == 'in' || stateObj.state == 'post') {
+      const homeTeamProb = stateObj.attributes.home_team_odds_win_pct;
+      const awayTeamProb = stateObj.attributes.away_team_odds_win_pct;
+	    
       var homeTeamLogo = stateObj.attributes.home_team_logo;
       var awayTeamLogo = stateObj.attributes.away_team_logo;
+
+      var awayTeamColor = stateObj.attributes.away_team_colors[1];
+      var homeTeamColor = stateObj.attributes.home_team_colors[0];
 
       var hScr = stateObj.attributes.home_team_goals;
       var aScr = stateObj.attributes.away_team_goals;
@@ -43,17 +47,17 @@ class NHLCard extends LitElement {
       var gameMonth = dateForm.toLocaleDateString('en-US', { month: 'short' });
       var gameDate = dateForm.toLocaleDateString('en-US', { day: '2-digit' });
 			
-			if (stateObj.attributes.odds) {
-				var odds = stateObj.attributes.odds;
-			} else {
-				var odds = 'Odds: NA';
-			}
+      if (stateObj.attributes.odds) {
+        var odds = stateObj.attributes.odds;
+      } else {
+        var odds = 'Odds: NA';
+      }
 			
-			if (stateObj.attributes.overunder) {
-				var overunder = stateObj.attributes.overunder;
-			} else {
-				var overunder = 'O/U: NA';
-			}
+      if (stateObj.attributes.overunder) {
+        var overunder = stateObj.attributes.overunder;
+      } else {
+        var overunder = 'O/U: NA';
+      }
 			
       if (Boolean(stateObj.state == 'post') && Number(hScr) > Number(aScr)) {
         var awayTeamScoreOpacity = 0.6;
@@ -115,27 +119,27 @@ class NHLCard extends LitElement {
 				
         if (stateObj.attributes.winning_goalie) {
           var homeTeamGoalieOfRecord = 'T: ' + stateObj.attributes.winning_goalie;
-				} else {
-					var homeTeamGoalieOfRecord = 'Goalie: N/A';
-				}
+        } else {
+          var homeTeamGoalieOfRecord = 'Goalie: N/A';
+        }
 				
         if ((stateObj.attributes.winning_goalie_saves) && (stateObj.attributes.winning_goalie_save_pct)) {
           var homeTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
-				} else {
-					var homeTeamGoalieOfRecordStats = 'Stats: N/A';
-				}
+        } else {
+          var homeTeamGoalieOfRecordStats = 'Stats: N/A';
+        }
 				
         if (stateObj.attributes.losing_goalie) {
           var awayTeamGoalieOfRecord = 'T: ' + stateObj.attributes.losing_goalie;
-				} else {
-					var awayTeamGoalieOfRecord = 'Goalie: N/A';
-				}
+        } else {
+          var awayTeamGoalieOfRecord = 'Goalie: N/A';
+        }
 				
         if ((stateObj.attributes.losing_goalie_saves) && (stateObj.attributes.losing_goalie_save_pct)) {
           var awayTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
-				} else {
-					var awayTeamGoalieOfRecordStats = 'Stats: N/A';
-				}
+        } else {
+          var awayTeamGoalieOfRecordStats = 'Stats: N/A';
+        }
 				
       } else if (Boolean(stateObj.state == 'in')) {
         var awayTeamScoreOpacity = 1;
@@ -163,9 +167,6 @@ class NHLCard extends LitElement {
       var outColor = '#ffffff';
     }
     
-    var awayTeamColor = stateObj.attributes.away_team_colors[1];
-    var homeTeamColor = stateObj.attributes.home_team_colors[0];
-
     if (!stateObj) {
       return html` <ha-card>Unknown entity: ${this._config.entity}</ha-card> `;
     } else {
