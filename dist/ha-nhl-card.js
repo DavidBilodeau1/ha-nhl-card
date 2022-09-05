@@ -86,25 +86,25 @@ class NHLCard extends LitElement {
       if (stateObj.attributes.home_team_record) {
         homeTeamRecord = stateObj.attributes.home_team_record;
       } else {
-        homeTeamRecord = 'N/A';
+        homeTeamRecord = '0-0-0';
       }
 
       if (stateObj.attributes.away_team_record) {
         awayTeamRecord = stateObj.attributes.away_team_record;
       } else {
-        awayTeamRecord = 'N/A';
+        awayTeamRecord = '0-0-0';
       }
 
       if (stateObj.attributes.home_team_starting_goalie) {
         homeTeamStartingGoalie = stateObj.attributes.home_team_starting_goalie;
       } else {
-        homeTeamStartingGoalie = 'N/A';
+        homeTeamStartingGoalie = 'Goalie: N/A';
       }
 
       if (stateObj.attributes.away_team_starting_goalie) {
         awayTeamStartingGoalie = stateObj.attributes.away_team_starting_goalie;
       } else {
-        awayTeamStartingGoalie = 'N/A';
+        awayTeamStartingGoalie = 'Goalie: N/A';
       }
 
       if (stateObj.attributes.tv_network) {
