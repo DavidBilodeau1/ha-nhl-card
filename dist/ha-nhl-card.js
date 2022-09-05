@@ -30,10 +30,25 @@ class NHLCard extends LitElement {
     var homeTeamLogo;
     var homeTeamColor;
     var hScr;
+    var homeTeamRecord;
+    var homeTeamStartingGoalie;
+    var homeTeamScoreOpacity;
+    var homeTeamGoalieOfRecord;
+    var homeTeamGoalieOfRecordStats;
     var awayTeamProb;
     var awayTeamLogo;
     var awayTeamColor;
     var aScr;
+    var awayTeamRecord;
+    var awayTeamStartingGoalie;
+    var awayTeamScoreOpacity;
+    var awayTeamGoalieOfRecord;
+    var awayTeamGoalieOfRecordStats;
+    var tvNetwork;
+    var gameNotes;
+    var seriesSummary;
+    var odds;
+    var overunder;
 	
     var outColor = outlineColor;
 
@@ -69,45 +84,45 @@ class NHLCard extends LitElement {
       }
       
       if (stateObj.attributes.home_team_record) {
-        const homeTeamRecord = stateObj.attributes.home_team_record;
+        homeTeamRecord = stateObj.attributes.home_team_record;
       } else {
-        const homeTeamRecord = 'N/A';
+        homeTeamRecord = 'N/A';
       }
 
       if (stateObj.attributes.away_team_record) {
-        const awayTeamRecord = stateObj.attributes.away_team_record;
+        awayTeamRecord = stateObj.attributes.away_team_record;
       } else {
-        const awayTeamRecord = 'N/A';
+        awayTeamRecord = 'N/A';
       }
 
       if (stateObj.attributes.home_team_starting_goalie) {
-        const homeTeamStartingGoalie = stateObj.attributes.home_team_starting_goalie;
+        homeTeamStartingGoalie = stateObj.attributes.home_team_starting_goalie;
       } else {
-        const homeTeamStartingGoalie = 'N/A';
+        homeTeamStartingGoalie = 'N/A';
       }
 
       if (stateObj.attributes.away_team_starting_goalie) {
-        const awayTeamStartingGoalie = stateObj.attributes.away_team_starting_goalie;
+        awayTeamStartingGoalie = stateObj.attributes.away_team_starting_goalie;
       } else {
-        const awayTeamStartingGoalie = 'N/A';
+        awayTeamStartingGoalie = 'N/A';
       }
 
       if (stateObj.attributes.tv_network) {
-        const tvNetwork = stateObj.attributes.tv_network;
+        tvNetwork = stateObj.attributes.tv_network;
       } else {
-        const tvNetwork = '';
+        tvNetwork = '';
       }
 
       if (stateObj.attributes.game_notes) {
-        const gameNotes = stateObj.attributes.game_notes;
+        gameNotes = stateObj.attributes.game_notes;
       } else {
-        const gameNotes = '';
+        gameNotes = '';
       }
 
       if (stateObj.attributes.series_summary) {
-        const seriesSummary = stateObj.attributes.series_summary;
+        seriesSummary = stateObj.attributes.series_summary;
       } else {
-        const seriesSummary = '';
+        seriesSummary = '';
       }
 
 			
@@ -118,108 +133,108 @@ class NHLCard extends LitElement {
       var gameDate = dateForm.toLocaleDateString('en-US', { day: '2-digit' });
 			
       if (stateObj.attributes.odds) {
-        const odds = stateObj.attributes.odds;
+        odds = stateObj.attributes.odds;
       } else {
-        const odds = 'Odds: NA';
+        odds = 'Odds: NA';
       }
 			
       if (stateObj.attributes.overunder) {
-        const overunder = stateObj.attributes.overunder;
+        overunder = stateObj.attributes.overunder;
       } else {
-        const overunder = 'O/U: NA';
+        overunder = 'O/U: NA';
       }
 			
       if (Boolean(stateObj.state == 'post') && Number(hScr) > Number(aScr)) {
-        var awayTeamScoreOpacity = 0.6;
-        var homeTeamScoreOpacity = 1;
+        awayTeamScoreOpacity = 0.6;
+        homeTeamScoreOpacity = 1;
 
         if (stateObj.attributes.winning_goalie) {
-          const homeTeamGoalieOfRecord = 'W: ' + stateObj.attributes.winning_goalie;
+          homeTeamGoalieOfRecord = 'W: ' + stateObj.attributes.winning_goalie;
         } else {
-          const homeTeamGoalieOfRecord = 'Goalie: N/A';
+          homeTeamGoalieOfRecord = 'Goalie: N/A';
         }
       
         if ((stateObj.attributes.winning_goalie_saves) && (stateObj.attributes.winning_goalie_save_pct)) {
-          const homeTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
+          homeTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
         } else {
-          const homeTeamGoalieOfRecordStats = 'Stats: N/A';
+          homeTeamGoalieOfRecordStats = 'Stats: N/A';
         }
       
         if (stateObj.attributes.losing_goalie) {
-          const awayTeamGoalieOfRecord = 'L: ' + stateObj.attributes.losing_goalie;
+          awayTeamGoalieOfRecord = 'L: ' + stateObj.attributes.losing_goalie;
         } else {
-          const awayTeamGoalieOfRecord = 'Goalie: N/A';
+          awayTeamGoalieOfRecord = 'Goalie: N/A';
         }
       
         if ((stateObj.attributes.losing_goalie_saves) && (stateObj.attributes.losing_goalie_save_pct)) {
-          const awayTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
+          awayTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
         } else {
-          const awayTeamGoalieOfRecordStats = 'Stats: N/A';
+          awayTeamGoalieOfRecordStats = 'Stats: N/A';
         }
       } else if (Boolean(stateObj.state == 'post') && Number(hScr) < Number(aScr)) {
-        const awayTeamScoreOpacity = 1;
-        const homeTeamScoreOpacity = 0.6;
+        awayTeamScoreOpacity = 1;
+        homeTeamScoreOpacity = 0.6;
 
         if (stateObj.attributes.losing_goalie) {
-          const homeTeamGoalieOfRecord = 'L: ' + stateObj.attributes.losing_goalie;
+          homeTeamGoalieOfRecord = 'L: ' + stateObj.attributes.losing_goalie;
         } else {
-          const homeTeamGoalieOfRecord = 'Goalie: N/A';
+          homeTeamGoalieOfRecord = 'Goalie: N/A';
         }
         
         if ((stateObj.attributes.losing_goalie_saves) && (stateObj.attributes.losing_goalie_save_pct)) {
-          const homeTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
+          homeTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
         } else {
-          const homeTeamGoalieOfRecordStats = 'Stats N/A';
+          homeTeamGoalieOfRecordStats = 'Stats N/A';
         }
         
         if (stateObj.attributes.winning_goalie) {
-          const awayTeamGoalieOfRecord = 'W: ' + stateObj.attributes.winning_goalie;
+          awayTeamGoalieOfRecord = 'W: ' + stateObj.attributes.winning_goalie;
         } else {
-          const awayTeamGoalieOfRecord = 'Goalie: N/A';
+          awayTeamGoalieOfRecord = 'Goalie: N/A';
         }
         
         if ((stateObj.attributes.winning_goalie_saves) && (stateObj.attributes.winning_goalie_save_pct)) {
-          const awayTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
+          awayTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
         } else {
-          const awayTeamGoalieOfRecordStats = 'Stats: N/A';
+          awayTeamGoalieOfRecordStats = 'Stats: N/A';
         }
       } else if (Boolean(stateObj.state == 'post') && Number(hScr) == Number(aScr)) {
-        const awayTeamScoreOpacity = 1;
-        const homeTeamScoreOpacity = 1;
+        awayTeamScoreOpacity = 1;
+        homeTeamScoreOpacity = 1;
 				
         if (stateObj.attributes.winning_goalie) {
-          const homeTeamGoalieOfRecord = 'T: ' + stateObj.attributes.winning_goalie;
+          homeTeamGoalieOfRecord = 'T: ' + stateObj.attributes.winning_goalie;
         } else {
-          const homeTeamGoalieOfRecord = 'Goalie: N/A';
+          homeTeamGoalieOfRecord = 'Goalie: N/A';
         }
 				
         if ((stateObj.attributes.winning_goalie_saves) && (stateObj.attributes.winning_goalie_save_pct)) {
-          const homeTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
+          homeTeamGoalieOfRecordStats = stateObj.attributes.winning_goalie_saves + ' SV (' + stateObj.attributes.winning_goalie_save_pct + ')';
         } else {
-          const homeTeamGoalieOfRecordStats = 'Stats: N/A';
+          homeTeamGoalieOfRecordStats = 'Stats: N/A';
         }
 				
         if (stateObj.attributes.losing_goalie) {
-          const awayTeamGoalieOfRecord = 'T: ' + stateObj.attributes.losing_goalie;
+          awayTeamGoalieOfRecord = 'T: ' + stateObj.attributes.losing_goalie;
         } else {
-          const awayTeamGoalieOfRecord = 'Goalie: N/A';
+          awayTeamGoalieOfRecord = 'Goalie: N/A';
         }
 				
         if ((stateObj.attributes.losing_goalie_saves) && (stateObj.attributes.losing_goalie_save_pct)) {
-          const awayTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
+          awayTeamGoalieOfRecordStats = stateObj.attributes.losing_goalie_saves + ' SV (' + stateObj.attributes.losing_goalie_save_pct + ')';
         } else {
-          const awayTeamGoalieOfRecordStats = 'Stats: N/A';
+          awayTeamGoalieOfRecordStats = 'Stats: N/A';
         }
 				
       } else if (Boolean(stateObj.state == 'in')) {
-        const awayTeamScoreOpacity = 1;
-        const homeTeamScoreOpacity = 1;
+        awayTeamScoreOpacity = 1;
+        homeTeamScoreOpacity = 1;
       }
     } else {
-      const homeTeamLogo = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS';
-      const awayTeamLogo = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS';
-      const hScr = 0;
-      const aScr = 0;
+      homeTeamLogo = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS';
+      awayTeamLogo = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR8rGHWIehoVzpadKbNwJhQ_IxdUbKv81ed06p_3fRsSvmJzluS';
+      hScr = 0;
+      aScr = 0;
     }
 
     if (outline == true) {
