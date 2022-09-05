@@ -29,8 +29,19 @@ class NHLCard extends LitElement {
     var outColor = outlineColor;
 
     if (stateObj.state == 'pre' || stateObj.state == 'in' || stateObj.state == 'post') {
-      const homeTeamProb = stateObj.attributes.home_team_odds_win_pct;
-      const awayTeamProb = stateObj.attributes.away_team_odds_win_pct;
+      // 09/04/22 - check for value
+      if (stateObj.attributes.home_team_odds_win_pct) {
+        const homeTeamProb = stateObj.attributes.home_team_odds_win_pct;
+      } else {
+        const homeTeamProb = 50;
+      }
+			
+      // 09/04/22 - check for value
+      if (stateObj.attributes.away_team_odds_win_pct) {
+        const awayTeamProb = stateObj.attributes.away_team_odds_win_pct;
+      } else {
+        const awayTeamProb = 50;
+      }
 	    
       var homeTeamLogo = stateObj.attributes.home_team_logo;
       var awayTeamLogo = stateObj.attributes.away_team_logo;
@@ -38,9 +49,63 @@ class NHLCard extends LitElement {
       var awayTeamColor = stateObj.attributes.away_team_colors[1];
       var homeTeamColor = stateObj.attributes.home_team_colors[0];
 
-      var hScr = stateObj.attributes.home_team_goals;
-      var aScr = stateObj.attributes.away_team_goals;
-		
+      // 09/04/22 - check for value
+      if (stateObj.attributes.home_team_goals) {
+        var hScr = stateObj.attributes.home_team_goals;
+      } else {
+        var hScr = 0;
+      }
+			
+      // 09/04/22 - check for value
+      if (stateObj.attributes.away_team_goals) {
+        var aScr = stateObj.attributes.away_team_goals;
+      } else {
+        var aScr = 0;
+      }
+      
+      if (stateObj.attributes.home_team_record) {
+        var homeTeamRecord = stateObj.attributes.home_team_record;
+      } else {
+        var homeTeamRecord = 'N/A';
+      }
+
+      if (stateObj.attributes.away_team_record) {
+        var awayTeamRecord = stateObj.attributes.away_team_record;
+      } else {
+        var awayTeamRecord = 'N/A';
+      }
+
+      if (stateObj.attributes.home_team_starting_goalie) {
+        var homeTeamStartingGoalie = stateObj.attributes.home_team_starting_goalie;
+      } else {
+        var homeTeamStartingGoalie = 'N/A';
+      }
+
+      if (stateObj.attributes.away_team_starting_goalie) {
+        var awayTeamStartingGoalie = stateObj.attributes.away_team_starting_goalie;
+      } else {
+        var awayTeamStartingGoalie = 'N/A';
+      }
+
+      if (stateObj.attributes.tv_network) {
+        var tvNetwork = stateObj.attributes.tv_network;
+      } else {
+        var tvNetwork = '';
+      }
+
+      if (stateObj.attributes.game_notes) {
+        var gameNotes = stateObj.attributes.game_notes;
+      } else {
+        var gameNotes = '';
+      }
+
+      if (stateObj.attributes.series_summary) {
+        var seriesSummary = stateObj.attributes.series_summary;
+      } else {
+        var seriesSummary = '';
+      }
+
+			
       var dateForm = new Date (stateObj.attributes.date);
       var gameDay = dateForm.toLocaleDateString('en-US', { weekday: 'long' });
       var gameTime = dateForm.toLocaleTimeString('en-US', { hour: '2-digit', minute:'2-digit' });
@@ -217,12 +282,13 @@ class NHLCard extends LitElement {
 				  <div class="card">
 				    <img class="away-team-bg" src="${awayTeamLogo}" />
 				    <img class="home-team-bg" src="${homeTeamLogo}" />
+				    
 				    <div class="card-content">
 					    <div class="team">
 					      <img src="${awayTeamLogo}" />
 					      <div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
-					      <div class="record">${stateObj.attributes.away_team_record}</div>
-					      <div class="goalie">${stateObj.attributes.away_team_starting_goalie}</div>
+					      <div class="record">${awayTeamRecord}</div>
+					      <div class="goalie">${awayTeamStartingGoalie}</div>
 					    </div>
 					    <div class="gamewrapper">
 					      <div class="gameday">${gameDay}</div>
@@ -231,11 +297,13 @@ class NHLCard extends LitElement {
 					    <div class="team">
 					      <img src="${homeTeamLogo}" />
 					      <div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
-					      <div class="record">${stateObj.attributes.home_team_record}</div>
-					      <div class="goalie">${stateObj.attributes.home_team_starting_goalie}</div>
+					      <div class="record">${homeTeamRecord}</div>
+					      <div class="goalie">${homeTeamStartingGoalie}</div>
 					    </div>
 				    </div>
+				    
 				    <div class="line"></div>
+				    
 				    <div class="sub1">
 					    <div class="date">Puck drop ${stateObj.attributes.puck_drop_in}</div>
 					    <div class="odds">${odds}</div>
@@ -246,11 +314,11 @@ class NHLCard extends LitElement {
 				    </div>
 				    <div class="sub3">
 					    <div class="location">${stateObj.attributes.venue_city}, ${stateObj.attributes.venue_state}</div>
-					    <div class="network">${stateObj.attributes.tv_network}</div>
+					    <div class="network">${tvNetwork}</div>
 				    </div>
 				    <div class="sub4">
-				      <div class="gamenotes">${stateObj.attributes.game_notes}</div>
-				      <div class="seriessummary">${stateObj.attributes.series_summary}</div>
+				      <div class="gamenotes">${gameNotes}</div>
+				      <div class="seriessummary">${seriesSummary}</div>
 				    </div>			    
 				    <div class="probability-text">Win Probability</div>
 				    <div class="probability-wrapper">
@@ -304,7 +372,7 @@ class NHLCard extends LitElement {
 				  <div class="team">
 					<img src="${awayTeamLogo}" />
 					<div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
-					<div class="record">${stateObj.attributes.away_team_record}</div>
+					<div class="record">${awayTeamRecord}</div>
 					<div class="goalie">${awayTeamGoalieOfRecord}<br>${awayTeamGoalieOfRecordStats}</div>
 				  </div>
 				  <div class="score awayteamscr">${aScr}</div>
@@ -313,7 +381,7 @@ class NHLCard extends LitElement {
 				  <div class="team">
 					<img src="${homeTeamLogo}" />
 					<div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
-					<div class="record">${stateObj.attributes.home_team_record}</div>
+					<div class="record">${homeTeamRecord}</div>
 					<div class="goalie">${homeTeamGoalieOfRecord}<br>${homeTeamGoalieOfRecordStats}</div>
 				  </div>
 				</div>
@@ -325,8 +393,8 @@ class NHLCard extends LitElement {
 				</div>
 
 				<div class="sub3">
-				  <div class="gamenotes">${stateObj.attributes.game_notes}</div>
-				  <div class="seriessummary">${stateObj.attributes.series_summary}</div>
+				  <div class="gamenotes">${gameNotes}</div>
+				  <div class="seriessummary">${seriesSummary}</div>
 				</div>
 
 				<div class="line"></div>
@@ -415,7 +483,7 @@ class NHLCard extends LitElement {
 				  <div class="team">
 					<img src="${awayTeamLogo}" />
 					<div class="name">${stateObj.attributes.away_team_city}<br>${stateObj.attributes.away_team_name}</div>
-					<div class="record">${stateObj.attributes.away_team_record}</div>
+					<div class="record">${awayTeamRecord}</div>
 				  </div>
 				  <div class="score">${aScr}</div>
 				  <div class="divider">-</div>
@@ -423,7 +491,7 @@ class NHLCard extends LitElement {
 				  <div class="team">
 					<img src="${homeTeamLogo}" />
 					<div class="name">${stateObj.attributes.home_team_city}<br>${stateObj.attributes.home_team_name}</div>
-					<div class="record">${stateObj.attributes.home_team_record}</div>
+					<div class="record">${homeTeamRecord}</div>
 				  </div>
 				</div>
 				
@@ -439,8 +507,8 @@ class NHLCard extends LitElement {
 				  <div class="network">${stateObj.attributes.tv_network}</div>
 				</div>
 				<div class="sub4">
-				  <div class="gamenotes">${stateObj.attributes.game_notes}</div>
-				  <div class="seriessummary">${stateObj.attributes.series_summary}</div>
+				  <div class="gamenotes">${gameNotes}</div>
+				  <div class="seriessummary">${seriesSummary}</div>
 				</div>
 
 				<div class="line"></div>
@@ -517,3 +585,4 @@ class NHLCard extends LitElement {
 }
 
 customElements.define("nhl-card", NHLCard);
+
