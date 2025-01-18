@@ -451,6 +451,38 @@ class NHLCard extends LitElement {
 					  </tbody>
 				  </table>
 				  <div class="line">${stateObj.attributes.headlines}</div>
+          <div class="probability-text">
+				   <table class="ls">
+					 <thead>
+					   <tr>
+						 <th class="teamls">Scoring</th>
+						 <th>1</th>
+						 <th>2</th>
+						 <th>3</th>
+                                                 <th>OT</th>
+						 <th>T</th>
+					   </tr>
+					 </thead>
+					 <tbody>
+					   <tr>
+						 <td class="teamls"><img src="${awayTeamLogo}" style="height:15px;" />&nbsp; ${stateObj.attributes.away_team_abbr}</td>
+						 <td>${stateObj.attributes.away_team_ls_1}</td>
+						 <td>${stateObj.attributes.away_team_ls_2}</td>
+						 <td>${stateObj.attributes.away_team_ls_3}</td>
+                                                 <td>${stateObj.attributes.away_team_ls_ot}</td>
+						 <td>${stateObj.attributes.away_team_goals}</td>
+					   </tr>
+					   <tr>
+						 <td class="teamls"><img src="${homeTeamLogo}" style="height:15px;"/>&nbsp; ${stateObj.attributes.home_team_abbr}</td>
+						 <td>${stateObj.attributes.home_team_ls_1}</td>
+						 <td>${stateObj.attributes.home_team_ls_2}</td>
+						 <td>${stateObj.attributes.home_team_ls_3}</td>
+                                                 <td>${stateObj.attributes.home_team_ls_ot}</td>
+						 <td>${stateObj.attributes.home_team_goals}</td>
+					   </tr>
+					 </tbody>
+				   </table>
+				</div>
 			  </div>
 			</ha-card>
 		  `;
@@ -537,38 +569,14 @@ class NHLCard extends LitElement {
 				<div class="last-play">
 				  <p>${stateObj.attributes.last_play}</p>
 				</div>
-				
-				<div class="probability-text">
-				   <table class="ls">
-					 <thead>
-					   <tr>
-						 <th class="teamls">Scoring</th>
-						 <th>1</th>
-						 <th>2</th>
-						 <th>3</th>
-                                                 <th>OT</th>
-						 <th>T</th>
-					   </tr>
-					 </thead>
-					 <tbody>
-					   <tr>
-						 <td class="teamls"><img src="${awayTeamLogo}" style="height:15px;" />&nbsp; ${stateObj.attributes.away_team_abbr}</td>
-						 <td>${stateObj.attributes.away_team_ls_1}</td>
-						 <td>${stateObj.attributes.away_team_ls_2}</td>
-						 <td>${stateObj.attributes.away_team_ls_3}</td>
-                                                 <td>${stateObj.attributes.away_team_ls_ot}</td>
-						 <td>${stateObj.attributes.away_team_goals}</td>
-					   </tr>
-					   <tr>
-						 <td class="teamls"><img src="${homeTeamLogo}" style="height:15px;"/>&nbsp; ${stateObj.attributes.home_team_abbr}</td>
-						 <td>${stateObj.attributes.home_team_ls_1}</td>
-						 <td>${stateObj.attributes.home_team_ls_2}</td>
-						 <td>${stateObj.attributes.home_team_ls_3}</td>
-                                                 <td>${stateObj.attributes.home_team_ls_ot}</td>
-						 <td>${stateObj.attributes.home_team_goals}</td>
-					   </tr>
-					 </tbody>
-				   </table>
+				<div class="probability-text">Win Probability</div>
+				<div class="probability-wrapper">
+				    <div class="away-team-percent">${awayTeamProb}%</div>
+				    <div class="prob-flex">
+					      <div class="away-team-probability"></div>
+					      <div class="home-team-probability"></div>
+				    </div>
+				    <div class="home-team-percent">${homeTeamProb}%</div>
 				</div>
 				
 			  </div>
